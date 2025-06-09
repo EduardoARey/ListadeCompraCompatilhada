@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".HouseSelectionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title=""
+            app:title="Minhas Casas"
             app:titleTextColor="@android:color/white"
             android:background="?attr/colorPrimary" />
 
@@ -47,32 +47,18 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/tvHouseName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Casa"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/colorPrimary"
-                        android:gravity="center"
-                        android:drawableStart="@drawable/ic_shopping_cart_24"
-                        android:drawablePadding="8dp" />
-
-                    <TextView
-                        android:id="@+id/tvListName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Lista de Compras"
+                        android:text="Casas"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:gravity="center"
-                        android:layout_marginTop="4dp" />
+                        android:textColor="?attr/colorPrimary"
+                        android:gravity="center" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lista de compras compartilhada em tempo real"
+                        android:text="Gerencie suas casas e listas compartilhadas"
                         android:textSize="14sp"
                         android:textColor="?android:attr/textColorSecondary"
                         android:gravity="center"
@@ -83,17 +69,17 @@
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewItems"
+                android:id="@+id/recyclerViewHouses"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_shopping_list" />
+                tools:listitem="@layout/item_house" />
 
             <TextView
                 android:id="@+id/tvEmptyState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sua lista está vazia.\nToque no botão + para adicionar itens."
+                android:text="Você ainda não faz parte de nenhuma casa.\n\nCrie uma nova casa ou entre em uma existente usando um código de convite."
                 android:textSize="16sp"
                 android:textColor="?android:attr/textColorSecondary"
                 android:gravity="center"
@@ -106,13 +92,29 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddItem"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_24"
-        android:contentDescription="@string/add_item" />
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabJoinHouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_email_24"
+            android:contentDescription="Entrar em casa"
+            app:fabSize="mini" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabCreateHouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_24"
+            android:contentDescription="Criar casa" />
+
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

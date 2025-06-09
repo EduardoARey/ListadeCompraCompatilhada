@@ -8,6 +8,13 @@
     <string name="share_list">Compartilhar lista</string>
     <string name="logout">Sair</string>
 
+    <!-- HouseSelectionActivity -->
+    <string name="create_house">Criar casa</string>
+    <string name="join_house">Entrar em casa</string>
+    <string name="leave_house">Sair da casa</string>
+    <string name="share_house">Compartilhar casa</string>
+    <string name="my_houses">Minhas Casas</string>
+
     <!-- LoginActivity -->
     <string name="email">Email</string>
     <string name="password">Senha</string>
@@ -19,27 +26,40 @@
     <!-- Dialog -->
     <string name="add_item_title">Adicionar Item</string>
     <string name="edit_item_title">Editar Item</string>
+    <string name="create_house_title">Criar Nova Casa</string>
+    <string name="join_house_title">Entrar em uma Casa</string>
     <string name="item_name">Nome do item</string>
     <string name="item_quantity">Quantidade</string>
+    <string name="house_name">Nome da casa</string>
+    <string name="invite_code">Código de convite</string>
     <string name="add">Adicionar</string>
     <string name="save">Salvar</string>
+    <string name="create">Criar</string>
+    <string name="join">Entrar</string>
     <string name="cancel">Cancelar</string>
     <string name="delete">Excluir</string>
 
     <!-- Empty state -->
     <string name="empty_list">Sua lista está vazia.\nToque no botão + para adicionar itens.</string>
+    <string name="empty_houses">Você ainda não faz parte de nenhuma casa.\n\nCrie uma nova casa ou entre em uma existente usando um código de convite.</string>
 
     <!-- Menu -->
     <string name="menu_share">Compartilhar</string>
     <string name="menu_logout">Sair</string>
+    <string name="menu_houses">Minhas Casas</string>
 
     <!-- Messages -->
     <string name="login_success">Login realizado com sucesso!</string>
     <string name="register_success">Conta criada com sucesso!</string>
+    <string name="house_created_success">Casa criada com sucesso!</string>
+    <string name="house_joined_success">Entrou na casa com sucesso!</string>
+    <string name="house_left_success">Saiu da casa com sucesso!</string>
     <string name="login_failed">Falha no login</string>
     <string name="register_failed">Falha no registro</string>
     <string name="error_email_required">Email é obrigatório</string>
     <string name="error_password_required">Senha é obrigatória</string>
+    <string name="error_house_name_required">Nome da casa é obrigatório</string>
+    <string name="error_invite_code_required">Código de convite é obrigatório</string>
     <string name="error_email_invalid">Digite um email válido</string>
     <string name="error_password_short">A senha deve ter pelo menos 6 caracteres</string>
     <string name="error_add_item">Erro ao adicionar item</string>
@@ -47,11 +67,25 @@
     <string name="error_delete_item">Erro ao excluir item</string>
     <string name="error_load_list">Erro ao carregar lista</string>
     <string name="error_create_list">Erro ao criar lista</string>
+    <string name="error_create_house">Erro ao criar casa</string>
+    <string name="error_join_house">Erro ao entrar na casa</string>
+    <string name="error_leave_house">Erro ao sair da casa</string>
+    <string name="error_invalid_invite_code">Código de convite inválido</string>
+    <string name="error_already_member">Você já é membro desta casa</string>
+    <string name="error_owner_cannot_leave">O dono da casa não pode sair. Transfira a propriedade primeiro.</string>
 
     <!-- Confirmation -->
     <string name="delete_item_title">Excluir Item</string>
     <string name="delete_item_message">Deseja realmente excluir este item?</string>
+    <string name="leave_house_title">Sair da Casa</string>
+    <string name="leave_house_message">Deseja realmente sair desta casa?</string>
+
+    <!-- Notifications -->
+    <string name="notification_item_added">Item Adicionado</string>
+    <string name="notification_item_updated">Item Atualizado</string>
+    <string name="notification_item_removed">Item Removido</string>
 
     <!-- Share -->
-    <string name="share_development">Funcionalidade de compartilhamento em desenvolvimento</string>
+    <string name="share_house_subject">Convite para casa</string>
+    <string name="share_house_text">Convite para a casa \"%1$s\"\nCódigo de convite: %2$s\n\nUse este código no app Lista de Compras Compartilhada para entrar na nossa casa!</string>
 </resources>

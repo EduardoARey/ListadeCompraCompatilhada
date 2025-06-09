@@ -1,12 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share_24"
-        android:title="@string/menu_share"
+        android:title="Compartilhar Casa"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_house_list"
+        android:icon="@drawable/ic_shopping_cart_24"
+        android:title="Minhas Casas"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_logout"

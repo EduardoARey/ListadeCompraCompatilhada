@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvHouseName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorPrimary"
+                        tools:text="Casa da Família" />
+
+                    <TextView
+                        android:id="@+id/tvOwnerBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DONO"
+                        android:textSize="10sp"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/owner_badge_background"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:layout_marginStart="8dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvOwnerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_marginTop="2dp"
+                    tools:text="Dono: João Silva" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:id="@+id/tvMemberCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="12sp"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:drawableStart="@drawable/ic_people_24"
+                        android:drawablePadding="4dp"
+                        tools:text="4 membro(s)" />
+
+                    <TextView
+                        android:id="@+id/tvInviteCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"
+                        android:background="@drawable/quantity_background"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        tools:text="Código: ABC123" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCreatedAt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_marginTop="4dp"
+                    tools:text="Criada em: 25/12/2023" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnShareHouse"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_share_24"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Compartilhar casa"
+                    android:layout_marginEnd="4dp" />
+
+                <ImageButton
+                    android:id="@+id/btnLeaveHouse"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_logout_24"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Sair da casa"
+                    app:tint="?attr/colorError" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
