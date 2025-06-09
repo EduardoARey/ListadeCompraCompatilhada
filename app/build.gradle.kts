@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.firebase:firebase-analytics")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -47,6 +48,8 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-analytics")
 
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 
     // Testes
     testImplementation("junit:junit:4.13.2")

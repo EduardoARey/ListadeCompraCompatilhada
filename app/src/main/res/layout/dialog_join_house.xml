@@ -9,6 +9,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         app:hintTextColor="?attr/colorPrimary"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -23,12 +24,36 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:hintTextColor="?attr/colorPrimary"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seu apelido nesta casa"
+            android:inputType="textCapWords"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="O apelido é como você aparecerá para outros membros da casa (ex: Papai, Mamãe, João, etc.)"
+        android:textSize="12sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:layout_marginBottom="8dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Digite o código de 6 caracteres que você recebeu para entrar na casa."
         android:textSize="12sp"
-        android:textColor="?android:attr/textColorSecondary"
-        android:layout_marginTop="8dp" />
+        android:textColor="?android:attr/textColorSecondary" />
 
 </LinearLayout>

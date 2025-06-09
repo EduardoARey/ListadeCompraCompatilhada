@@ -86,6 +86,27 @@
     <string name="notification_item_removed">Item Removido</string>
 
     <!-- Share -->
+    <string name="default_web_client_id">144054551765-8q2pu8tv20pq3nak5s9faamqhqkdca51.apps.googleusercontent.com</string>
     <string name="share_house_subject">Convite para casa</string>
     <string name="share_house_text">Convite para a casa \"%1$s\"\nCódigo de convite: %2$s\n\nUse este código no app Lista de Compras Compartilhada para entrar na nossa casa!</string>
+
+
+    <string name="google_sign_in">Continuar com Google</string>
+    <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="reset_password_title">Recuperar Senha</string>
+    <string name="reset_password_message">Digite seu email para receber um link de recuperação de senha.</string>
+    <string name="send_reset_email">Enviar</string>
+    <string name="email_verification_title">Verificação de Email</string>
+    <string name="email_verification_message">Para usar o aplicativo, você precisa verificar seu email. Verifique sua caixa de entrada e clique no link de verificação.</string>
+    <string name="resend_email">Reenviar Email</string>
+    <string name="check_now">Verificar Agora</string>
+    <string name="email_verified_success">Email verificado com sucesso!</string>
+    <string name="email_not_verified">Email ainda não foi verificado. Verifique sua caixa de entrada.</string>
+    <string name="verification_email_sent">Email de verificação enviado!</string>
+    <string name="reset_email_sent">Email de recuperação enviado para %1$s</string>
+    <string name="google_sign_in_success">Login com Google realizado com sucesso!</string>
+    <string name="google_sign_in_error">Erro no login com Google</string>
+    <string name="account_created_verify_email">Conta criada! Verifique seu email para ativar a conta.</string>
+
 </resources>
+

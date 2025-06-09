@@ -67,6 +67,19 @@
                     android:layout_marginTop="2dp"
                     tools:text="Dono: João Silva" />
 
+                <TextView
+                    android:id="@+id/tvMyNickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="italic"
+                    android:layout_marginTop="2dp"
+                    android:drawableStart="@drawable/ic_person_24"
+                    android:drawablePadding="4dp"
+                    android:visibility="gone"
+                    tools:text="Meu apelido: Papai" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,6 +127,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginStart="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnEditNickname"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_person_24"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Editar apelido"
+                    app:tint="?attr/colorPrimary"
+                    android:layout_marginEnd="4dp" />
 
                 <ImageButton
                     android:id="@+id/btnShareHouse"

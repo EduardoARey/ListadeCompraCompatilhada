@@ -26,6 +26,7 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
         void onHouseClick(House house);
         void onHouseLeave(House house);
         void onHouseShare(House house);
+        void onHouseEdit(House house);
     }
 
     public HouseAdapter(List<House> houses, OnHouseClickListener listener) {
@@ -51,6 +52,15 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
         holder.tvOwnerName.setText("Dono: " + house.getOwnerName());
         holder.tvMemberCount.setText(house.getMemberCount() + " membro(s)");
         holder.tvInviteCode.setText("Código: " + house.getInviteCode());
+
+        // Mostrar o apelido do usuário atual nesta casa
+        House.HouseMember currentMember = house.getMembers().get(currentUserId);
+        if (currentMember != null) {
+            holder.tvMyNickname.setText("Meu apelido: " + currentMember.getName());
+            holder.tvMyNickname.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvMyNickname.setVisibility(View.GONE);
+        }
 
         // Formatar data de criação
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -81,6 +91,12 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
                 listener.onHouseShare(house);
             }
         });
+
+        holder.btnEditNickname.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onHouseEdit(house);
+            }
+        });
     }
 
     @Override
@@ -95,8 +111,10 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
         TextView tvInviteCode;
         TextView tvCreatedAt;
         TextView tvOwnerBadge;
+        TextView tvMyNickname;
         ImageButton btnLeaveHouse;
         ImageButton btnShareHouse;
+        ImageButton btnEditNickname;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,8 +124,10 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
             tvInviteCode = itemView.findViewById(R.id.tvInviteCode);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             tvOwnerBadge = itemView.findViewById(R.id.tvOwnerBadge);
+            tvMyNickname = itemView.findViewById(R.id.tvMyNickname);
             btnLeaveHouse = itemView.findViewById(R.id.btnLeaveHouse);
             btnShareHouse = itemView.findViewById(R.id.btnShareHouse);
+            btnEditNickname = itemView.findViewById(R.id.btnEditNickname);
         }
     }
 }

@@ -48,6 +48,51 @@
                 android:gravity="center"
                 android:layout_marginBottom="32dp" />
 
+            <!-- Google Sign-In Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGoogleSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Continuar com Google"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"
+                app:cornerRadius="8dp"
+                app:icon="@drawable/ic_google_24"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+            <!-- Divider -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="24dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/textColorSecondary"
+                    android:alpha="0.3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  ou  "
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="?android:attr/textColorSecondary"
+                    android:alpha="0.3" />
+
+            </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +114,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="8dp"
                 app:startIconDrawable="@drawable/ic_lock_24"
                 app:endIconMode="password_toggle"
                 app:hintTextColor="?attr/colorPrimary"
@@ -84,6 +129,18 @@
                     android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Esqueceu a senha?"
+                android:textSize="14sp"
+                android:textColor="?attr/colorPrimary"
+                android:gravity="end"
+                android:padding="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/selectableItemBackground" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"

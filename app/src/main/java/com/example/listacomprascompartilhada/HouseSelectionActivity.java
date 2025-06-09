@@ -80,6 +80,11 @@ public class HouseSelectionActivity extends AppCompatActivity {
             public void onHouseShare(House house) {
                 shareHouseInvite(house);
             }
+
+            @Override
+            public void onHouseEdit(House house) {
+                showEditNicknameDialog(house);
+            }
         });
 
         recyclerViewHouses.setLayoutManager(new LinearLayoutManager(this));
@@ -112,17 +117,30 @@ public class HouseSelectionActivity extends AppCompatActivity {
     private void showCreateHouseDialog() {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_create_house, null);
         EditText etHouseName = dialogView.findViewById(R.id.etHouseName);
+        EditText etNickname = dialogView.findViewById(R.id.etNickname);
+
+        // Sugerir um apelido baseado no nome do usuário
+        String suggestedNickname = getSuggestedNickname();
+        etNickname.setText(suggestedNickname);
 
         new AlertDialog.Builder(this)
                 .setTitle("Criar Nova Casa")
                 .setView(dialogView)
                 .setPositiveButton("Criar", (dialog, which) -> {
                     String houseName = etHouseName.getText().toString().trim();
-                    if (!houseName.isEmpty()) {
-                        createHouse(houseName);
-                    } else {
+                    String nickname = etNickname.getText().toString().trim();
+
+                    if (houseName.isEmpty()) {
                         Toast.makeText(this, "Digite um nome para a casa", Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    if (nickname.isEmpty()) {
+                        Toast.makeText(this, "Digite um apelido", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    createHouse(houseName, nickname);
                 })
                 .setNegativeButton("Cancelar", null)
                 .show();
@@ -131,16 +149,56 @@ public class HouseSelectionActivity extends AppCompatActivity {
     private void showJoinHouseDialog() {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_join_house, null);
         EditText etInviteCode = dialogView.findViewById(R.id.etInviteCode);
+        EditText etNickname = dialogView.findViewById(R.id.etNickname);
+
+        // Sugerir um apelido baseado no nome do usuário
+        String suggestedNickname = getSuggestedNickname();
+        etNickname.setText(suggestedNickname);
 
         new AlertDialog.Builder(this)
                 .setTitle("Entrar em uma Casa")
                 .setView(dialogView)
                 .setPositiveButton("Entrar", (dialog, which) -> {
                     String inviteCode = etInviteCode.getText().toString().trim().toUpperCase();
-                    if (!inviteCode.isEmpty()) {
-                        joinHouse(inviteCode);
-                    } else {
+                    String nickname = etNickname.getText().toString().trim();
+
+                    if (inviteCode.isEmpty()) {
                         Toast.makeText(this, "Digite o código de convite", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (nickname.isEmpty()) {
+                        Toast.makeText(this, "Digite um apelido", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    joinHouse(inviteCode, nickname);
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void showEditNicknameDialog(House house) {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_nickname, null);
+        EditText etNickname = dialogView.findViewById(R.id.etNickname);
+
+        // Pegar apelido atual do usuário nesta casa
+        String currentUserId = mAuth.getCurrentUser().getUid();
+        House.HouseMember currentMember = house.getMembers().get(currentUserId);
+        if (currentMember != null) {
+            etNickname.setText(currentMember.getName());
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Editar Apelido")
+                .setMessage("Como você quer aparecer nesta casa?")
+                .setView(dialogView)
+                .setPositiveButton("Salvar", (dialog, which) -> {
+                    String newNickname = etNickname.getText().toString().trim();
+                    if (!newNickname.isEmpty()) {
+                        updateNickname(house.getId(), newNickname);
+                    } else {
+                        Toast.makeText(this, "Digite um apelido", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Cancelar", null)
@@ -156,8 +214,32 @@ public class HouseSelectionActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void createHouse(String houseName) {
-        houseManager.createHouse(houseName, new HouseManager.HouseCallback() {
+    private String getSuggestedNickname() {
+        // Tentar diferentes fontes para sugerir um apelido
+        if (mAuth.getCurrentUser() != null) {
+            String displayName = mAuth.getCurrentUser().getDisplayName();
+            if (displayName != null && !displayName.trim().isEmpty()) {
+                // Pegar apenas o primeiro nome
+                String firstName = displayName.split(" ")[0];
+                return firstName;
+            }
+
+            String email = mAuth.getCurrentUser().getEmail();
+            if (email != null) {
+                String name = email.split("@")[0];
+                name = name.replace(".", " ").replace("_", " ");
+                // Capitalizar e pegar primeira palavra
+                String[] words = name.split(" ");
+                if (words.length > 0 && words[0].length() > 0) {
+                    return Character.toUpperCase(words[0].charAt(0)) + words[0].substring(1).toLowerCase();
+                }
+            }
+        }
+        return "";
+    }
+
+    private void createHouse(String houseName, String nickname) {
+        houseManager.createHouseWithNickname(houseName, nickname, new HouseManager.HouseCallback() {
             @Override
             public void onSuccess(House house) {
                 Toast.makeText(HouseSelectionActivity.this, "Casa criada com sucesso!", Toast.LENGTH_SHORT).show();
@@ -171,11 +253,26 @@ public class HouseSelectionActivity extends AppCompatActivity {
         });
     }
 
-    private void joinHouse(String inviteCode) {
-        houseManager.joinHouse(inviteCode, new HouseManager.HouseCallback() {
+    private void joinHouse(String inviteCode, String nickname) {
+        houseManager.joinHouseWithNickname(inviteCode, nickname, new HouseManager.HouseCallback() {
             @Override
             public void onSuccess(House house) {
                 Toast.makeText(HouseSelectionActivity.this, "Entrou na casa com sucesso!", Toast.LENGTH_SHORT).show();
+                loadUserHouses();
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(HouseSelectionActivity.this, error, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateNickname(String houseId, String newNickname) {
+        houseManager.updateUserNickname(houseId, newNickname, new HouseManager.HouseCallback() {
+            @Override
+            public void onSuccess(House house) {
+                Toast.makeText(HouseSelectionActivity.this, "Apelido atualizado!", Toast.LENGTH_SHORT).show();
                 loadUserHouses();
             }
 
@@ -263,11 +360,5 @@ public class HouseSelectionActivity extends AppCompatActivity {
         super.onResume();
         // Iniciar monitoramento de notificações
         NotificationService.getInstance(this).startAllHousesMonitoring();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Não parar completamente as notificações, apenas quando fizer logout
     }
 }
