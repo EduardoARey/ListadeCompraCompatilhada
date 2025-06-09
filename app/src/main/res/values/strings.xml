@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Lista de Compras</string>
+
+    <!-- MainActivity -->
+    <string name="add_item">Adicionar item</string>
+    <string name="edit_item">Editar item</string>
+    <string name="delete_item">Excluir item</string>
+    <string name="share_list">Compartilhar lista</string>
+    <string name="logout">Sair</string>
+
+    <!-- LoginActivity -->
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="login">Entrar</string>
+    <string name="register">Criar Conta</string>
+    <string name="no_account">Não tem conta? Clique aqui para criar</string>
+    <string name="have_account">Já tem conta? Clique aqui para entrar</string>
+
+    <!-- Dialog -->
+    <string name="add_item_title">Adicionar Item</string>
+    <string name="edit_item_title">Editar Item</string>
+    <string name="item_name">Nome do item</string>
+    <string name="item_quantity">Quantidade</string>
+    <string name="add">Adicionar</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Excluir</string>
+
+    <!-- Empty state -->
+    <string name="empty_list">Sua lista está vazia.\nToque no botão + para adicionar itens.</string>
+
+    <!-- Menu -->
+    <string name="menu_share">Compartilhar</string>
+    <string name="menu_logout">Sair</string>
+
+    <!-- Messages -->
+    <string name="login_success">Login realizado com sucesso!</string>
+    <string name="register_success">Conta criada com sucesso!</string>
+    <string name="login_failed">Falha no login</string>
+    <string name="register_failed">Falha no registro</string>
+    <string name="error_email_required">Email é obrigatório</string>
+    <string name="error_password_required">Senha é obrigatória</string>
+    <string name="error_email_invalid">Digite um email válido</string>
+    <string name="error_password_short">A senha deve ter pelo menos 6 caracteres</string>
+    <string name="error_add_item">Erro ao adicionar item</string>
+    <string name="error_update_item">Erro ao atualizar item</string>
+    <string name="error_delete_item">Erro ao excluir item</string>
+    <string name="error_load_list">Erro ao carregar lista</string>
+    <string name="error_create_list">Erro ao criar lista</string>
+
+    <!-- Confirmation -->
+    <string name="delete_item_title">Excluir Item</string>
+    <string name="delete_item_message">Deseja realmente excluir este item?</string>
+
+    <!-- Share -->
+    <string name="share_development">Funcionalidade de compartilhamento em desenvolvimento</string>
+</resources>
