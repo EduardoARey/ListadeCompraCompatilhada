@@ -53,7 +53,7 @@ public class HouseManager {
         return instance;
     }
 
-    // Criar uma nova casa com apelido personalizado
+
     public void createHouseWithNickname(String houseName, String nickname, HouseCallback callback) {
         Log.d(TAG, "Creating house: " + houseName + " with nickname: " + nickname);
 
@@ -78,10 +78,10 @@ public class HouseManager {
         House house = new House(houseName, currentUser.getUid(), nickname, inviteCode);
         house.setId(houseId);
 
-        // Adicionar o criador como membro com o apelido escolhido
+
         House.HouseMember owner = new House.HouseMember(
                 currentUser.getUid(),
-                nickname, // Usar o apelido escolhido
+                nickname,
                 currentUser.getEmail(),
                 true
         );
@@ -92,17 +92,17 @@ public class HouseManager {
 
         Log.d(TAG, "Saving house to Firebase...");
 
-        // Salvar casa no Firebase
+
         mDatabase.child("houses").child(houseId).setValue(house)
                 .addOnSuccessListener(aVoid -> {
                     Log.d(TAG, "House saved successfully!");
 
-                    // Adicionar referência da casa ao usuário
+
                     mDatabase.child("user_houses").child(currentUser.getUid()).child(houseId).setValue(true)
                             .addOnSuccessListener(aVoid2 -> {
                                 Log.d(TAG, "User house reference added successfully!");
 
-                                // Criar lista de compras padrão para a casa
+
                                 createDefaultShoppingList(houseId);
 
                                 callback.onSuccess(house);
@@ -118,9 +118,9 @@ public class HouseManager {
                 });
     }
 
-    // Método original para compatibilidade
+
     public void createHouse(String houseName, HouseCallback callback) {
-        // Usar nome extraído do email como apelido padrão
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String defaultNickname = extractNameFromEmail(currentUser.getEmail());
@@ -130,7 +130,7 @@ public class HouseManager {
         }
     }
 
-    // Entrar em uma casa com apelido personalizado
+
     public void joinHouseWithNickname(String inviteCode, String nickname, HouseCallback callback) {
         Log.d(TAG, "Joining house with code: " + inviteCode + " and nickname: " + nickname);
 
@@ -140,7 +140,7 @@ public class HouseManager {
             return;
         }
 
-        // Buscar casa pelo código de convite
+
         mDatabase.child("houses").orderByChild("inviteCode").equalTo(inviteCode)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -161,7 +161,7 @@ public class HouseManager {
                             if (house != null && houseId != null) {
                                 house.setId(houseId);
 
-                                // Verificar se usuário já é membro
+
                                 if (house.getMembers().containsKey(currentUser.getUid())) {
                                     callback.onError("Você já é membro desta casa");
                                     return;
@@ -169,7 +169,7 @@ public class HouseManager {
 
                                 House.HouseMember newMember = new House.HouseMember(
                                         currentUser.getUid(),
-                                        nickname, // Usar o apelido escolhido
+                                        nickname,
                                         currentUser.getEmail(),
                                         false
                                 );
@@ -203,9 +203,9 @@ public class HouseManager {
                 });
     }
 
-    // Método original para compatibilidade
+
     public void joinHouse(String inviteCode, HouseCallback callback) {
-        // Usar nome extraído do email como apelido padrão
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String defaultNickname = extractNameFromEmail(currentUser.getEmail());
@@ -215,7 +215,7 @@ public class HouseManager {
         }
     }
 
-    // Atualizar apelido do usuário em uma casa específica
+
     public void updateUserNickname(String houseId, String newNickname, HouseCallback callback) {
         Log.d(TAG, "Updating nickname in house: " + houseId + " to: " + newNickname);
 
@@ -225,7 +225,7 @@ public class HouseManager {
             return;
         }
 
-        // Verificar se o usuário é membro da casa
+
         mDatabase.child("houses").child(houseId).child("members").child(currentUser.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -235,11 +235,11 @@ public class HouseManager {
                             return;
                         }
 
-                        // Atualizar apenas o nome do membro
+
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("houses/" + houseId + "/members/" + currentUser.getUid() + "/name", newNickname);
 
-                        // Se for o dono, atualizar também o ownerName
+
                         mDatabase.child("houses").child(houseId).child("ownerId")
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -252,7 +252,7 @@ public class HouseManager {
                                         mDatabase.updateChildren(updates)
                                                 .addOnSuccessListener(aVoid -> {
                                                     Log.d(TAG, "Nickname updated successfully!");
-                                                    // Buscar a casa atualizada para retornar
+
                                                     mDatabase.child("houses").child(houseId)
                                                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
@@ -280,7 +280,7 @@ public class HouseManager {
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
-                                        // Continuar mesmo se não conseguir verificar o dono
+
                                         mDatabase.updateChildren(updates)
                                                 .addOnSuccessListener(aVoid -> callback.onSuccess(null))
                                                 .addOnFailureListener(e -> callback.onError("Erro ao atualizar apelido: " + e.getMessage()));
@@ -296,7 +296,7 @@ public class HouseManager {
                 });
     }
 
-    // Listar casas do usuário
+
     public void getUserHouses(HouseListCallback callback) {
         Log.d(TAG, "Loading user houses...");
 
@@ -369,7 +369,7 @@ public class HouseManager {
                 });
     }
 
-    // Sair de uma casa
+
     public void leaveHouse(String houseId, HouseCallback callback) {
         Log.d(TAG, "Leaving house: " + houseId);
 
@@ -379,7 +379,7 @@ public class HouseManager {
             return;
         }
 
-        // Verificar se o usuário é o dono da casa
+
         mDatabase.child("houses").child(houseId).child("ownerId")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -391,12 +391,12 @@ public class HouseManager {
                             return;
                         }
 
-                        // Remover usuário da casa
+
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("houses/" + houseId + "/members/" + currentUser.getUid(), null);
                         updates.put("user_houses/" + currentUser.getUid() + "/" + houseId, null);
 
-                        // Decrementar contador de membros
+
                         mDatabase.child("houses").child(houseId).child("memberCount")
                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -433,14 +433,14 @@ public class HouseManager {
                 });
     }
 
-    // Extrair nome do email
+
     private String extractNameFromEmail(String email) {
         if (email == null) return "Usuário";
 
         String name = email.split("@")[0];
         name = name.replace(".", " ").replace("_", " ");
 
-        // Capitalizar primeira letra de cada palavra
+
         String[] words = name.split(" ");
         StringBuilder result = new StringBuilder();
 
@@ -457,7 +457,7 @@ public class HouseManager {
         return result.toString().trim();
     }
 
-    // Gerar código de convite único
+
     private String generateInviteCode() {
         String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder code = new StringBuilder();
@@ -470,7 +470,7 @@ public class HouseManager {
         return code.toString();
     }
 
-    // Criar lista de compras padrão para a casa
+
     private void createDefaultShoppingList(String houseId) {
         Log.d(TAG, "Creating default shopping list for house: " + houseId);
 

@@ -27,7 +27,7 @@ public class House {
         this.memberCount = 1;
     }
 
-    // Getters e Setters
+
     public String getId() {
         return id;
     }
@@ -92,7 +92,6 @@ public class House {
         this.memberCount = memberCount;
     }
 
-    // Classe interna para membros da casa
     public static class HouseMember {
         private String userId;
         private String name;

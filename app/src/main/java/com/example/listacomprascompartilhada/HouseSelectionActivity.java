@@ -42,7 +42,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         houseManager = HouseManager.getInstance();
 
-        // Verificar se usuário está logado
+
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -119,7 +119,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
         EditText etHouseName = dialogView.findViewById(R.id.etHouseName);
         EditText etNickname = dialogView.findViewById(R.id.etNickname);
 
-        // Sugerir um apelido baseado no nome do usuário
+
         String suggestedNickname = getSuggestedNickname();
         etNickname.setText(suggestedNickname);
 
@@ -151,7 +151,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
         EditText etInviteCode = dialogView.findViewById(R.id.etInviteCode);
         EditText etNickname = dialogView.findViewById(R.id.etNickname);
 
-        // Sugerir um apelido baseado no nome do usuário
+
         String suggestedNickname = getSuggestedNickname();
         etNickname.setText(suggestedNickname);
 
@@ -182,7 +182,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_edit_nickname, null);
         EditText etNickname = dialogView.findViewById(R.id.etNickname);
 
-        // Pegar apelido atual do usuário nesta casa
+
         String currentUserId = mAuth.getCurrentUser().getUid();
         House.HouseMember currentMember = house.getMembers().get(currentUserId);
         if (currentMember != null) {
@@ -215,11 +215,11 @@ public class HouseSelectionActivity extends AppCompatActivity {
     }
 
     private String getSuggestedNickname() {
-        // Tentar diferentes fontes para sugerir um apelido
+
         if (mAuth.getCurrentUser() != null) {
             String displayName = mAuth.getCurrentUser().getDisplayName();
             if (displayName != null && !displayName.trim().isEmpty()) {
-                // Pegar apenas o primeiro nome
+
                 String firstName = displayName.split(" ")[0];
                 return firstName;
             }
@@ -228,7 +228,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
             if (email != null) {
                 String name = email.split("@")[0];
                 name = name.replace(".", " ").replace("_", " ");
-                // Capitalizar e pegar primeira palavra
+
                 String[] words = name.split(" ");
                 if (words.length > 0 && words[0].length() > 0) {
                     return Character.toUpperCase(words[0].charAt(0)) + words[0].substring(1).toLowerCase();
@@ -347,7 +347,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        // Parar notificações
+
         NotificationService.getInstance(this).stopAllMonitoring();
 
         mAuth.signOut();
@@ -358,7 +358,7 @@ public class HouseSelectionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Iniciar monitoramento de notificações
+
         NotificationService.getInstance(this).startAllHousesMonitoring();
     }
 }

@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar Firebase
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         notificationService = NotificationService.getInstance(this);
 
-        // Verificar se usuário está logado
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             startActivity(new Intent(this, LoginActivity.class));
@@ -65,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
         currentUserId = currentUser.getUid();
 
-        // Verificar se veio de uma casa específica
+
         Intent intent = getIntent();
         currentHouseId = intent.getStringExtra("houseId");
         currentHouseName = intent.getStringExtra("houseName");
 
         if (currentHouseId == null) {
-            // Se não veio de uma casa, voltar para seleção de casas
+
             startActivity(new Intent(this, HouseSelectionActivity.class));
             finish();
             return;
@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
         setupRecyclerView();
         setupClickListeners();
 
-        // Carregar lista da casa
+
         loadHouseShoppingList();
 
-        // Iniciar monitoramento de notificações para esta casa
+
         notificationService.startHouseMonitoring(currentHouseId);
     }
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         tvEmptyState = findViewById(R.id.tvEmptyState);
         tvHouseName = findViewById(R.id.tvHouseName);
 
-        // Definir nome da casa
+
         if (tvHouseName != null) {
             tvHouseName.setText(currentHouseName != null ? currentHouseName : "Casa");
         }
@@ -130,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadHouseShoppingList() {
-        // Buscar lista padrão da casa
         mDatabase.child("house_shopping_lists").child(currentHouseId).child("default")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -160,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
             mDatabase.child("shopping_lists").child(listId).setValue(listData)
                     .addOnSuccessListener(aVoid -> {
-                        // Definir como lista padrão da casa
+
                         mDatabase.child("house_shopping_lists").child(currentHouseId).child("default").setValue(listId);
                         currentListId = listId;
                         loadShoppingList();
@@ -173,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadShoppingList() {
         if (currentListId == null) return;
 
-        // Carregar informações da lista
+
         mDatabase.child("shopping_lists").child(currentListId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -186,11 +185,11 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle error
+
                     }
                 });
 
-        // Carregar itens da lista em tempo real
+
         mDatabase.child("shopping_items").child(currentListId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -345,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void shareHouse() {
-        // Buscar informações da casa para compartilhar
+
         mDatabase.child("houses").child(currentHouseId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -380,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        // Parar notificações
+
         notificationService.stopAllMonitoring();
 
         mAuth.signOut();
@@ -392,7 +391,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (currentHouseId != null) {
-            // Parar monitoramento desta casa específica
+
             notificationService.stopHouseMonitoring(currentHouseId);
         }
     }

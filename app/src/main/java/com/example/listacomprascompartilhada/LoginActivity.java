@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Configurar Google Sign-In
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
 
                         if (user != null) {
-                            // Usuários do Google já têm email verificado
+
                             saveUserToDatabase(user, user.getDisplayName());
                             Toast.makeText(this, "Login com Google realizado com sucesso!",
                                     Toast.LENGTH_SHORT).show();
@@ -295,7 +295,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                 })
                 .setNeutralButton("Verificar Agora", (dialog, which) -> {
-                    // Recarregar o usuário para verificar se o email foi confirmado
+
                     user.reload().addOnCompleteListener(task -> {
                         if (user.isEmailVerified()) {
                             Toast.makeText(this, "Email verificado com sucesso!",

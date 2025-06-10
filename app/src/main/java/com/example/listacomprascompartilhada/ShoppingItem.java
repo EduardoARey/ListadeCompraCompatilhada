@@ -21,7 +21,7 @@ public class ShoppingItem {
         this.lastModified = createdAt;
     }
 
-    // Getters e Setters
+
     public String getId() {
         return id;
     }

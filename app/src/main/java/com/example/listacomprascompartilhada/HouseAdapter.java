@@ -53,7 +53,7 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
         holder.tvMemberCount.setText(house.getMemberCount() + " membro(s)");
         holder.tvInviteCode.setText("Código: " + house.getInviteCode());
 
-        // Mostrar o apelido do usuário atual nesta casa
+
         House.HouseMember currentMember = house.getMembers().get(currentUserId);
         if (currentMember != null) {
             holder.tvMyNickname.setText("Meu apelido: " + currentMember.getName());
@@ -62,18 +62,18 @@ public class HouseAdapter extends RecyclerView.Adapter<HouseAdapter.ViewHolder> 
             holder.tvMyNickname.setVisibility(View.GONE);
         }
 
-        // Formatar data de criação
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         holder.tvCreatedAt.setText("Criada em: " + dateFormat.format(new Date(house.getCreatedAt())));
 
-        // Verificar se é o dono da casa
+
         boolean isOwner = house.getOwnerId().equals(currentUserId);
         holder.tvOwnerBadge.setVisibility(isOwner ? View.VISIBLE : View.GONE);
 
-        // Configurar botão de sair (não mostrar para o dono)
+
         holder.btnLeaveHouse.setVisibility(isOwner ? View.GONE : View.VISIBLE);
 
-        // Configurar listeners
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onHouseClick(house);

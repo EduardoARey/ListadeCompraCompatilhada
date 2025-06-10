@@ -53,7 +53,7 @@ public class NotificationService {
         return instance;
     }
 
-    // Criar canal de notificação
+
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
@@ -66,12 +66,12 @@ public class NotificationService {
         }
     }
 
-    // Iniciar monitoramento de uma casa
+
     public void startHouseMonitoring(String houseId) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) return;
 
-        // Buscar a lista de compras da casa
+
         mDatabase.child("house_shopping_lists").child(houseId).child("default")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -84,17 +84,17 @@ public class NotificationService {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle error
+
                     }
                 });
     }
 
-    // Monitorar mudanças na lista de compras
+
     private void startListMonitoring(String listId, String houseId) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) return;
 
-        // Remover listener anterior se existir
+
         stopListMonitoring(listId);
 
         ChildEventListener listener = new ChildEventListener() {
@@ -102,11 +102,11 @@ public class NotificationService {
             public void onChildAdded(@NonNull DataSnapshot snapshot, String previousChildName) {
                 ShoppingItem item = snapshot.getValue(ShoppingItem.class);
                 if (item != null && !item.getAddedBy().equals(currentUser.getUid())) {
-                    // Verificar se é uma adição recente (últimos 10 segundos)
+
                     long currentTime = System.currentTimeMillis();
                     String itemKey = listId + "_" + snapshot.getKey();
 
-                    if (currentTime - item.getCreatedAt() < 10000) { // 10 segundos
+                    if (currentTime - item.getCreatedAt() < 10000) {
                         getUserName(item.getAddedBy(), userName ->
                                 showNotification(
                                         "Item Adicionado",
@@ -125,7 +125,6 @@ public class NotificationService {
                     String itemKey = listId + "_" + snapshot.getKey();
                     Long lastTimestamp = lastItemTimestamps.get(itemKey);
 
-                    // Verificar se é uma mudança recente
                     if (lastTimestamp == null || item.getLastModified() > lastTimestamp) {
                         lastItemTimestamps.put(itemKey, item.getLastModified());
 
@@ -157,12 +156,12 @@ public class NotificationService {
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot snapshot, String previousChildName) {
-                // Não usado para listas de compras
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error
+
             }
         };
 
@@ -170,7 +169,7 @@ public class NotificationService {
         activeListeners.put(listId, listener);
     }
 
-    // Parar monitoramento de uma lista
+
     public void stopListMonitoring(String listId) {
         ChildEventListener listener = activeListeners.remove(listId);
         if (listener != null) {
@@ -178,7 +177,7 @@ public class NotificationService {
         }
     }
 
-    // Parar monitoramento de uma casa
+
     public void stopHouseMonitoring(String houseId) {
         mDatabase.child("house_shopping_lists").child(houseId).child("default")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -192,12 +191,12 @@ public class NotificationService {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle error
+
                     }
                 });
     }
 
-    // Obter nome do usuário
+
     private void getUserName(String userId, UserNameCallback callback) {
         mDatabase.child("users").child(userId).child("displayName")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -214,7 +213,7 @@ public class NotificationService {
                 });
     }
 
-    // Mostrar notificação
+
     private void showNotification(String title, String message, String houseId) {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("houseId", houseId);
@@ -239,7 +238,7 @@ public class NotificationService {
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());
     }
 
-    // Iniciar monitoramento de todas as casas do usuário
+
     public void startAllHousesMonitoring() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) return;
@@ -254,12 +253,12 @@ public class NotificationService {
 
             @Override
             public void onError(String error) {
-                // Handle error
+
             }
         });
     }
 
-    // Parar monitoramento de todas as casas
+
     public void stopAllMonitoring() {
         for (String listId : activeListeners.keySet()) {
             stopListMonitoring(listId);
@@ -268,7 +267,7 @@ public class NotificationService {
         lastItemTimestamps.clear();
     }
 
-    // Interface para callback de nome de usuário
+
     private interface UserNameCallback {
         void onUserName(String name);
     }

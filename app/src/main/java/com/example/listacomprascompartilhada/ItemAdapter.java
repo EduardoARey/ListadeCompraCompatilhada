@@ -49,11 +49,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.tvItemQuantity.setText(item.getQuantity());
         holder.tvAddedBy.setText("Adicionado por: " + item.getAddedBy());
 
-        // Formatar data
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
         holder.tvCreatedAt.setText(dateFormat.format(new Date(item.getCreatedAt())));
 
-        // Aplicar estilo de item completado
+
         if (item.isCompleted()) {
             holder.tvItemName.setPaintFlags(holder.tvItemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.tvItemName.setAlpha(0.6f);
@@ -64,7 +64,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             holder.tvItemQuantity.setAlpha(1.0f);
         }
 
-        // Configurar listeners
+
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (listener != null) {
                 listener.onItemChecked(item, position);
